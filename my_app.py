@@ -1,17 +1,17 @@
 # Importing Libraries
 
-
 from PIL import Image, ImageTk
 import tkinter as tk
 import cv2
-
 from keras.models import model_from_json
+# from keras.models import load_model
 import operator
 import  os
 from string import ascii_uppercase
 import enchant
-from tkinter import messagebox
 import pyttsx3
+
+
 ##Creating Class
 
 
@@ -59,6 +59,12 @@ class Application:
         self.loaded_model_smn = model_from_json(self.model_json_smn)
         self.loaded_model_smn.load_weights(self.directory + "model-bw_smn.h5")
 
+
+        # self.loaded_model=load_model(self.directory + 'new_model.h5')
+        # # self.loaded_model_dru =load_model(self.directory + 'dru.h5')
+        # self.loaded_model_tkdi=load_model(self.directory + 'tkdi.h5')
+        # self.loaded_model_smn=load_model(self.directory + 'smn.h5')
+
         print("Loaded model from disk")
 
         self.ct = {}
@@ -101,7 +107,7 @@ class Application:
         self.T2.config(text="Word :", font=("Courier", 40, "bold"))
 
         self.panel5 = tk.Label(self.root)                                   #Panel4 for predicted Sentence
-        self.panel5.place(x=1050, y=285)
+        self.panel5.place(x=1100, y=285)
 
         self.T3 = tk.Label(self.root)                                       #Panel T3 for 'Sentence' Heading
         self.T3.place(x=750, y=285)
@@ -116,6 +122,10 @@ class Application:
         self.btcall = tk.Button(self.root,command = self.about,height = 0,width = 0)
         self.btcall.config(text = "About",font = ("Courier",14))
         self.btcall.place(x = 10, y = 0)
+
+        self.sign = tk.Button(self.root, command=self.sign, height=0, width=0)
+        self.sign.config(text="Sign", font=("Courier", 14))
+        self.sign.place(x=1450, y=0)
 
         self.bt1=tk.Button(self.root, command=self.action1,height = 0,width = 0)
         self.bt1.place(x = 20,y=700)
@@ -167,8 +177,6 @@ class Application:
         # self.bt3.config(text=self.predicts[2], font=("Courier", 20))
         # self.bt4.config(text=self.predicts[3], font=("Courier", 20))
         # self.bt5.config(text=self.predicts[4], font=("Courier", 20))
-
-
 
 
         self.video_loop()
@@ -323,12 +331,28 @@ class Application:
         cv2.destroyAllWindows()
 
     def about(self):
-        messagebox.showinfo('About','This is a Sign Language recognition program')
+        self.root1 = tk.Toplevel(self.root)
+        self.root1.title("About")
+        self.root1.protocol('WM_DELETE_WINDOW', self.destructor1)
+        self.root1.geometry("620x861")
+        self.photo1 = tk.PhotoImage(file='about.png')
+        self.w1 = tk.Label(self.root1, image=self.photo1)
+        self.w1.place(x=0, y=0)
+    def sign(self):
+        self.root2 = tk.Toplevel(self.root)
+        self.root2.title("Sign")
+        # self.root1.protocol('WM_DELETE_WINDOW', self.destructor1)
+
+        self.root2.geometry("640x480")
+        self.photo2 = tk.PhotoImage(file='sign.png')
+        self.w2 = tk.Label(self.root2, image=self.photo2)
+        self.w2.place(x=0, y=0)
 
 
-    # def destructor1(self):
-    #     print("Closing Application...")
-    #     self.root1.destroy()
+
+    def destructor1(self):
+        print("Closing Application...")
+        self.root1.destroy()
 
 
 print("Starting Application...")
