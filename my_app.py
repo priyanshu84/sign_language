@@ -127,6 +127,10 @@ class Application:
         self.sign.config(text="Sign", font=("Courier", 14))
         self.sign.place(x=1450, y=0)
 
+        self.suggestionbt=tk.Button(self.root,command=self.suggestion,height=0,width=0)
+        self.suggestionbt.config(text='Suggestions',font=("Courier",14))
+        self.suggestionbt.place(x=0,y=575)
+
         self.bt1=tk.Button(self.root, command=self.action1,height = 0,width = 0)
         self.bt1.place(x = 20,y=700)
         # self.bt1.grid(padx = 10, pady = 10)
@@ -148,30 +152,30 @@ class Application:
         # self.bt5.grid(row = 5, column = 1, columnspan = 1, padx = 10, pady = 10, sticky = tk.N)
 
         #Enchant Prediction
-        try:
-            self.predicts = self.en.suggest(self.word)
-        except:
-            self.predicts= ['A','B','C','D','E']
-        if (len(self.predicts) > 0):
-            self.bt1.config(text=self.predicts[0], font=("Courier", 20))
-        else:
-            self.bt1.config(text="")
-        if (len(self.predicts) > 1):
-            self.bt2.config(text=self.predicts[1], font=("Courier", 20))
-        else:
-            self.bt2.config(text="")
-        if (len(self.predicts) > 2):
-            self.bt3.config(text=self.predicts[2], font=("Courier", 20))
-        else:
-            self.bt3.config(text="")
-        if (len(self.predicts) > 3):
-            self.bt4.config(text=self.predicts[3], font=("Courier", 20))
-        else:
-            self.bt4.config(text="")
-        if (len(self.predicts) > 4):
-            self.bt5.config(text=self.predicts[4], font=("Courier", 20))
-        else:
-            self.bt5.config(text="")
+        # try:
+        #     self.predicts = self.en.suggest(self.word)
+        # except:
+        #     self.predicts= ['A','B','C','D','E']
+        # if (len(self.predicts) > 0):
+        #     self.bt1.config(text=self.predicts[0], font=("Courier", 20))
+        # else:
+        #     self.bt1.config(text="")
+        # if (len(self.predicts) > 1):
+        #     self.bt2.config(text=self.predicts[1], font=("Courier", 20))
+        # else:
+        #     self.bt2.config(text="")
+        # if (len(self.predicts) > 2):
+        #     self.bt3.config(text=self.predicts[2], font=("Courier", 20))
+        # else:
+        #     self.bt3.config(text="")
+        # if (len(self.predicts) > 3):
+        #     self.bt4.config(text=self.predicts[3], font=("Courier", 20))
+        # else:
+        #     self.bt4.config(text="")
+        # if (len(self.predicts) > 4):
+        #     self.bt5.config(text=self.predicts[4], font=("Courier", 20))
+        # else:
+        #     self.bt5.config(text="")
         # self.bt1.config(text=self.predicts[0], font=("Courier", 20))
         # self.bt2.config(text=self.predicts[1], font=("Courier", 20))
         # self.bt3.config(text=self.predicts[2], font=("Courier", 20))
@@ -299,30 +303,40 @@ class Application:
         if(len(predicts) > 0):
             self.word=""
             self.str+=" "
+            self.engine.say(self.word)
+            self.engine.runAndWait()
             self.str+=predicts[0]
     def action2(self):
         predicts=self.en.suggest(self.word)
         if(len(predicts) > 1):
             self.word=""
             self.str+=" "
+            self.engine.say(self.word)
+            self.engine.runAndWait()
             self.str+=predicts[1]
     def action3(self):
         predicts=self.en.suggest(self.word)
         if(len(predicts) > 2):
             self.word=""
             self.str+=" "
+            self.engine.say(self.word)
+            self.engine.runAndWait()
             self.str+=predicts[2]
     def action4(self):
         predicts=self.en.suggest(self.word)
         if(len(predicts) > 3):
             self.word=""
             self.str+=" "
+            self.engine.say(self.word)
+            self.engine.runAndWait()
             self.str+=predicts[3]
     def action5(self):
         predicts=self.en.suggest(self.word)
         if(len(predicts) > 4):
             self.word=""
             self.str+=" "
+            self.engine.say(self.word)
+            self.engine.runAndWait()
             self.str+=predicts[4]
     def destructor(self):
         print("Closing Application...")
@@ -347,6 +361,28 @@ class Application:
         self.photo2 = tk.PhotoImage(file='sign.png')
         self.w2 = tk.Label(self.root2, image=self.photo2)
         self.w2.place(x=0, y=0)
+    def suggestion(self):
+        self.predicts = self.en.suggest(self.word)
+        if (len(self.predicts) > 0):
+            self.bt1.config(text=self.predicts[0], font=("Courier", 20))
+        else:
+            self.bt1.config(text="")
+        if (len(self.predicts) > 1):
+            self.bt2.config(text=self.predicts[1], font=("Courier", 20))
+        else:
+            self.bt2.config(text="")
+        if (len(self.predicts) > 2):
+            self.bt3.config(text=self.predicts[2], font=("Courier", 20))
+        else:
+            self.bt3.config(text="")
+        if (len(self.predicts) > 3):
+            self.bt4.config(text=self.predicts[3], font=("Courier", 20))
+        else:
+            self.bt4.config(text="")
+        if (len(self.predicts) > 4):
+            self.bt5.config(text=self.predicts[4], font=("Courier", 20))
+        else:
+            self.bt5.config(text="")
 
 
 
