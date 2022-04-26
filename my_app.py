@@ -151,36 +151,11 @@ class Application:
         self.bt5.place(x = 1300,y=700)
         # self.bt5.grid(row = 5, column = 1, columnspan = 1, padx = 10, pady = 10, sticky = tk.N)
 
-        #Enchant Prediction
-        # try:
-        #     self.predicts = self.en.suggest(self.word)
-        # except:
-        #     self.predicts= ['A','B','C','D','E']
-        # if (len(self.predicts) > 0):
-        #     self.bt1.config(text=self.predicts[0], font=("Courier", 20))
-        # else:
-        #     self.bt1.config(text="")
-        # if (len(self.predicts) > 1):
-        #     self.bt2.config(text=self.predicts[1], font=("Courier", 20))
-        # else:
-        #     self.bt2.config(text="")
-        # if (len(self.predicts) > 2):
-        #     self.bt3.config(text=self.predicts[2], font=("Courier", 20))
-        # else:
-        #     self.bt3.config(text="")
-        # if (len(self.predicts) > 3):
-        #     self.bt4.config(text=self.predicts[3], font=("Courier", 20))
-        # else:
-        #     self.bt4.config(text="")
-        # if (len(self.predicts) > 4):
-        #     self.bt5.config(text=self.predicts[4], font=("Courier", 20))
-        # else:
-        #     self.bt5.config(text="")
-        # self.bt1.config(text=self.predicts[0], font=("Courier", 20))
-        # self.bt2.config(text=self.predicts[1], font=("Courier", 20))
-        # self.bt3.config(text=self.predicts[2], font=("Courier", 20))
-        # self.bt4.config(text=self.predicts[3], font=("Courier", 20))
-        # self.bt5.config(text=self.predicts[4], font=("Courier", 20))
+        self.saybtn = tk.Button(self.root, command=self.say, height=0, width=0)
+        self.saybtn.config(text='Say the Sentence', font=("Courier", 14))
+        self.saybtn.place(x=200, y=575)
+
+
 
 
         self.video_loop()
@@ -299,45 +274,40 @@ class Application:
                 self.word += self.current_symbol
 
     def action1(self):
-        predicts=self.en.suggest(self.word)
-        if(len(predicts) > 0):
+        if(len(self.predicts) > 0):
             self.word=""
             self.str+=" "
-            self.engine.say(self.word)
+            self.engine.say(self.predicts[0])
             self.engine.runAndWait()
-            self.str+=predicts[0]
+            self.str+=self.predicts[0]
     def action2(self):
-        predicts=self.en.suggest(self.word)
-        if(len(predicts) > 1):
+        if(len(self.predicts) > 1):
             self.word=""
             self.str+=" "
-            self.engine.say(self.word)
+            self.engine.say(self.predicts[1])
             self.engine.runAndWait()
-            self.str+=predicts[1]
+            self.str+=self.predicts[1]
     def action3(self):
-        predicts=self.en.suggest(self.word)
-        if(len(predicts) > 2):
+        if(len(self.predicts) > 2):
             self.word=""
             self.str+=" "
-            self.engine.say(self.word)
+            self.engine.say(self.predicts[2])
             self.engine.runAndWait()
-            self.str+=predicts[2]
+            self.str+=self.predicts[2]
     def action4(self):
-        predicts=self.en.suggest(self.word)
-        if(len(predicts) > 3):
+        if(len(self.predicts) > 3):
             self.word=""
             self.str+=" "
-            self.engine.say(self.word)
+            self.engine.say(self.predicts[3])
             self.engine.runAndWait()
-            self.str+=predicts[3]
+            self.str+=self.predicts[3]
     def action5(self):
-        predicts=self.en.suggest(self.word)
-        if(len(predicts) > 4):
+        if(len(self.predicts) > 4):
             self.word=""
             self.str+=" "
-            self.engine.say(self.word)
+            self.engine.say(self.predicts[4])
             self.engine.runAndWait()
-            self.str+=predicts[4]
+            self.str+=self.predicts[4]
     def destructor(self):
         print("Closing Application...")
         self.root.destroy()
@@ -383,6 +353,11 @@ class Application:
             self.bt5.config(text=self.predicts[4], font=("Courier", 20))
         else:
             self.bt5.config(text="")
+
+    def say(self):
+        self.engine.say(self.str)
+        self.engine.runAndWait()
+
 
 
 
