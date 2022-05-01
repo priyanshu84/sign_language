@@ -11,7 +11,7 @@ import os
 
 datadir=os.getcwd()+'\\data\\'
 traindir=datadir+'\\train\\'
-testdir=datadir='\\test\\'
+testdir=datadir+'\\test\\'
 
 train_datagen = ImageDataGenerator(
         rescale=1./255,
