@@ -8,10 +8,11 @@ import os
 
 #Before doing this step please create a folder of data having test and train data in the current working directory
 
-
+#Direcory path
 datadir=os.getcwd()+'\\data\\'
 traindir=datadir+'\\train\\'
 testdir=datadir+'\\test\\'
+
 
 train_datagen = ImageDataGenerator(
         rescale=1./255,
