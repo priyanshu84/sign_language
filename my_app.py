@@ -19,7 +19,7 @@ class Application:
     def __init__(self):
 
         # Setting Up path
-        self.directory = os.getcwd() + '\\model\\'
+        self.directory = os.getcwd() + '\\models\\'
         # initializing Enchant
         self.en = enchant.Dict('en_US')
 
@@ -35,35 +35,58 @@ class Application:
         self.photo = "Empty"
 
         # Loading Models
+        # black White
         self.json_file = open(self.directory + "model-bw.json", "r")
         self.model_json = self.json_file.read()
         self.json_file.close()
         self.loaded_model = model_from_json(self.model_json)
         self.loaded_model.load_weights(self.directory + "model-bw.h5")
 
-        self.json_file_dru = open(self.directory + "model-bw_dru.json", "r")
-        self.model_json_dru = self.json_file_dru.read()
-        self.json_file_dru.close()
-        self.loaded_model_dru = model_from_json(self.model_json_dru)
-        self.loaded_model_dru.load_weights(self.directory + "model-bw_dru.h5")
+        #AMNT
+        self.json_file_amnt = open(self.directory + "model-amnt.json", "r")
+        self.model_json_amnt = self.json_file_amnt.read()
+        self.json_file_amnt.close()
+        self.loaded_model_amnt = model_from_json(self.model_json_amnt)
+        self.loaded_model_amnt.load_weights(self.directory + "model-amnt.h5")
 
-        self.json_file_tkdi = open(self.directory + "model-bw_tkdi.json", "r")
-        self.model_json_tkdi = self.json_file_tkdi.read()
-        self.json_file_tkdi.close()
-        self.loaded_model_tkdi = model_from_json(self.model_json_tkdi)
-        self.loaded_model_tkdi.load_weights(self.directory + "model-bw_tkdi.h5")
+        #AS
+        self.json_file_as = open(self.directory + "model-as.json", "r")
+        self.model_json_as = self.json_file_as.read()
+        self.json_file_as.close()
+        self.loaded_model_as = model_from_json(self.model_json_as)
+        self.loaded_model_as.load_weights(self.directory + "model-as.h5")
 
-        self.json_file_smn = open(self.directory + "model-bw_smn.json", "r")
-        self.model_json_smn = self.json_file_smn.read()
-        self.json_file_smn.close()
-        self.loaded_model_smn = model_from_json(self.model_json_smn)
-        self.loaded_model_smn.load_weights(self.directory + "model-bw_smn.h5")
+        #CO
+        self.json_file_co = open(self.directory + "model-co.json", "r")
+        self.model_json_co = self.json_file_co.read()
+        self.json_file_co.close()
+        self.loaded_model_co = model_from_json(self.model_json_co)
+        self.loaded_model_co.load_weights(self.directory + "model-co.h5")
+
+        #GHP
+        self.json_file_ghp = open(self.directory + "model-ghp.json", "r")
+        self.model_json_ghp = self.json_file_ghp.read()
+        self.json_file_ghp.close()
+        self.loaded_model_ghp = model_from_json(self.model_json_ghp)
+        self.loaded_model_ghp.load_weights(self.directory + "model-ghp.h5")
+
+        #KV
+        self.json_file_kv = open(self.directory + "model-kv.json", "r")
+        self.model_json_kv = self.json_file_kv.read()
+        self.json_file_kv.close()
+        self.loaded_model_kv = model_from_json(self.model_json_kv)
+        self.loaded_model_kv.load_weights(self.directory + "model-kv.h5")
+
+        # #IR
+        # self.json_file_ir = open(self.directory + "model-ri.json", "r")
+        # self.model_json_ir = self.json_file_ir.read()
+        # self.json_file_ir.close()
+        # self.loaded_model_ir = model_from_json(self.model_json_ir)
+        # self.loaded_model_ir.load_weights(self.directory + "model-ri.h5")
 
 
-        # self.loaded_model=load_model(self.directory + 'new_model.h5')
-        # # self.loaded_model_dru =load_model(self.directory + 'dru.h5')
-        # self.loaded_model_tkdi=load_model(self.directory + 'tkdi.h5')
-        # self.loaded_model_smn=load_model(self.directory + 'smn.h5')
+
+
 
         print("Loaded model from disk")
 
@@ -131,6 +154,7 @@ class Application:
         self.suggestionbt.config(text='Suggestions',font=("Courier",14))
         self.suggestionbt.place(x=0,y=575)
 
+
         self.bt1=tk.Button(self.root, command=self.action1,height = 0,width = 0)
         self.bt1.place(x = 20,y=700)
         # self.bt1.grid(padx = 10, pady = 10)
@@ -153,7 +177,19 @@ class Application:
 
         self.saybtn = tk.Button(self.root, command=self.say, height=0, width=0)
         self.saybtn.config(text='Say the Sentence', font=("Courier", 14))
-        self.saybtn.place(x=200, y=575)
+        self.saybtn.place(x=225, y=575)
+
+        self.addletter = tk.Button(self.root, command=self.add_let, height=0, width=0)
+        self.addletter.config(text='Add', font=("Courier", 14))
+        self.addletter.place(x=160, y=575)
+
+
+
+
+
+
+
+
 
 
 
@@ -200,9 +236,9 @@ class Application:
     def predict(self,test_image):
         test_image = cv2.resize(test_image, (128,128))
         result = self.loaded_model.predict(test_image.reshape(1, 128, 128, 1))
-        result_dru = self.loaded_model_dru.predict(test_image.reshape(1 , 128 , 128 , 1))
-        result_tkdi = self.loaded_model_tkdi.predict(test_image.reshape(1 , 128 , 128 , 1))
-        result_smn = self.loaded_model_smn.predict(test_image.reshape(1 , 128 , 128 , 1))
+
+
+
         prediction={}
         prediction['blank'] = result[0][0]
         inde = 1
@@ -213,31 +249,62 @@ class Application:
         prediction = sorted(prediction.items(), key=operator.itemgetter(1), reverse=True)
         self.current_symbol = prediction[0][0]
         #LAYER 2
-        if(self.current_symbol == 'D' or self.current_symbol == 'R' or self.current_symbol == 'U'):
+        #AS
+        if(self.current_symbol == 'A' or self.current_symbol == 'S'):
+            result_as = self.loaded_model_as.predict(test_image.reshape(1, 128, 128, 1))
             prediction = {}
-            prediction['D'] = result_dru[0][0]
-            prediction['R'] = result_dru[0][1]
-            prediction['U'] = result_dru[0][2]
+            prediction['A'] = result_as[0][0]
+            prediction['S'] = result_as[0][1]
             prediction = sorted(prediction.items(), key=operator.itemgetter(1), reverse=True)
             self.current_symbol = prediction[0][0]
 
-        if(self.current_symbol == 'D' or self.current_symbol == 'I' or self.current_symbol == 'K' or self.current_symbol == 'T'):
+        # AMNT
+        if(self.current_symbol == 'A' or self.current_symbol == 'M' or self.current_symbol == 'N' or self.current_symbol == 'T'):
+            result_amnt = self.loaded_model_amnt.predict(test_image.reshape(1, 128, 128, 1))
             prediction = {}
-            prediction['D'] = result_tkdi[0][0]
-            prediction['I'] = result_tkdi[0][1]
-            prediction['K'] = result_tkdi[0][2]
-            prediction['T'] = result_tkdi[0][3]
+            prediction['A'] = result_amnt[0][0]
+            prediction['M'] = result_amnt[0][1]
+            prediction['N'] = result_amnt[0][2]
+            prediction['T'] = result_amnt[0][3]
             prediction = sorted(prediction.items(), key=operator.itemgetter(1), reverse=True)
             self.current_symbol = prediction[0][0]
 
-        if(self.current_symbol == 'M' or self.current_symbol == 'N' or self.current_symbol == 'S'):
+        #CO
+        if(self.current_symbol == 'C' or self.current_symbol == 'O'):
+            result_co = self.loaded_model_co.predict(test_image.reshape(1, 128, 128, 1))
             prediction1 = {}
-            prediction1['M'] = result_smn[0][0]
-            prediction1['N'] = result_smn[0][1]
-            prediction1['S'] = result_smn[0][2]
+            prediction1['C'] = result_co[0][0]
+            prediction1['O'] = result_co[0][1]
             prediction1 = sorted(prediction1.items(), key=operator.itemgetter(1), reverse=True)
-
             self.current_symbol = prediction1[0][0]
+
+        #GHP
+        if (self.current_symbol == 'G' or self.current_symbol == 'H' or self.current_symbol == 'P' ):
+            result_ghp = self.loaded_model_ghp.predict(test_image.reshape(1, 128, 128, 1))
+            prediction = {}
+            prediction['G'] = result_ghp[0][0]
+            prediction['H'] = result_ghp[0][1]
+            prediction['P'] = result_ghp[0][2]
+            prediction = sorted(prediction.items(), key=operator.itemgetter(1), reverse=True)
+            self.current_symbol = prediction[0][0]
+
+        #KV
+        if (self.current_symbol == 'K' or self.current_symbol == 'V'):
+            result_kv = self.loaded_model_kv.predict(test_image.reshape(1, 128, 128, 1))
+            prediction1 = {}
+            prediction1['K'] = result_kv[0][0]
+            prediction1['V'] = result_kv[0][1]
+            prediction1 = sorted(prediction1.items(), key=operator.itemgetter(1), reverse=True)
+            self.current_symbol = prediction1[0][0]
+
+        # #IR
+        # if (self.current_symbol == 'I' or self.current_symbol == 'R'):
+        #     result_ir = self.loaded_model_ir.predict(test_image.reshape(1, 128, 128, 1))
+        #     prediction1 = {}
+        #     prediction1['I'] = result_ir[0][0]
+        #     prediction1['R'] = result_ir[0][1]
+        #     prediction1 = sorted(prediction1.items(), key=operator.itemgetter(1), reverse=True)
+        #     self.current_symbol = prediction1[0][0]
 
         if(self.current_symbol == 'blank'):
             for i in ascii_uppercase:
@@ -308,6 +375,12 @@ class Application:
             self.engine.say(self.predicts[4])
             self.engine.runAndWait()
             self.str+=self.predicts[4]
+
+
+    def add_let(self):
+        self.word+=self.current_symbol
+
+
     def destructor(self):
         print("Closing Application...")
         self.root.destroy()
@@ -315,22 +388,25 @@ class Application:
         cv2.destroyAllWindows()
 
     def about(self):
+
         self.root1 = tk.Toplevel(self.root)
         self.root1.title("About")
         self.root1.protocol('WM_DELETE_WINDOW', self.destructor1)
         self.root1.geometry("620x861")
-        self.photo1 = tk.PhotoImage(file='about.png')
+        self.photo1 = tk.PhotoImage(file="images//about.png")
         self.w1 = tk.Label(self.root1, image=self.photo1)
         self.w1.place(x=0, y=0)
+
+
     def sign(self):
         self.root2 = tk.Toplevel(self.root)
         self.root2.title("Sign")
-        # self.root1.protocol('WM_DELETE_WINDOW', self.destructor1)
-
         self.root2.geometry("640x480")
-        self.photo2 = tk.PhotoImage(file='sign.png')
+        self.photo2 = tk.PhotoImage(file='images//sign.png')
         self.w2 = tk.Label(self.root2, image=self.photo2)
         self.w2.place(x=0, y=0)
+
+
     def suggestion(self):
         self.predicts = self.en.suggest(self.word)
         if (len(self.predicts) > 0):
@@ -354,11 +430,10 @@ class Application:
         else:
             self.bt5.config(text="")
 
+
     def say(self):
         self.engine.say(self.str)
         self.engine.runAndWait()
-
-
 
 
     def destructor1(self):
